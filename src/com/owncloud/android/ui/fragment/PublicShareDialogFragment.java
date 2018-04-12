@@ -3,7 +3,8 @@
  *
  * @author David A. Velasco
  * @author David González Verdugo
- * Copyright (C) 2017 ownCloud GmbH.
+ * @author Christian Schabesberger
+ * Copyright (C) 2018 ownCloud GmbH.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -35,7 +36,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -265,10 +265,9 @@ public class PublicShareDialogFragment extends DialogFragment {
 
                 int publicLinkPermissions = OCShare.DEFAULT_PERMISSION;
 
-                if(publicLinkUploadFilePermissionGranded(getView())) {
+                if(publicLinkUploadFilePermissionGranted(getView())) {
                     publicLinkPermissions = OCShare.CREATE_PERMISSION_FLAG;
                 }
-
 
                 if (!updating()) { // Creating a new public share
 
@@ -278,7 +277,7 @@ public class PublicShareDialogFragment extends DialogFragment {
                                     publicLinkName,
                                     publicLinkPassword,
                                     publicLinkExpirationDateInMillis,
-                                    publicLinkEditPermissionGranded(getView()),
+                                    publicLinkEditPermissionGranted(getView()),
                                     publicLinkPermissions
                             );
 
@@ -301,7 +300,7 @@ public class PublicShareDialogFragment extends DialogFragment {
                                     publicLinkName,
                                     publicLinkPassword,
                                     publicLinkExpirationDateInMillis,
-                                    publicLinkEditPermissionGranded(getView()),
+                                    publicLinkEditPermissionGranted(getView()),
                                     publicLinkPermissions
                             );
                 }
@@ -734,12 +733,12 @@ public class PublicShareDialogFragment extends DialogFragment {
         return (TextView) getView().findViewById(R.id.public_link_error_message);
     }
 
-    private boolean publicLinkEditPermissionGranded(View view) {
+    private boolean publicLinkEditPermissionGranted(View view) {
         return getPermissionsRadioGroup(view).getCheckedRadioButtonId()
                 == R.id.shareViaLinkEditPermissionReadAndWrite;
     }
 
-    public boolean publicLinkUploadFilePermissionGranded(View view) {
+    private boolean publicLinkUploadFilePermissionGranted(View view) {
         return getPermissionsRadioGroup(view).getCheckedRadioButtonId()
                 == R.id.shareViaLinkEditPermissionUploadFiles;
     }
